@@ -3,7 +3,7 @@ const { shareAll, withModuleFederationPlugin } = require('@angular-architects/mo
 module.exports = withModuleFederationPlugin({
 
   remotes: {
-    "mfe-remote": "http://localhost:3000/remoteEntry.js",    
+    "mfeRemote": "http://localhost:4201/remoteEntry.js",   
   },
 
   shared: {

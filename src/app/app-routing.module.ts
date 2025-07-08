@@ -4,16 +4,7 @@ import { AppComponent } from './app.component';
 import { loadRemoteModule } from '@angular-architects/module-federation';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
-  {
-    path: 'mfe',
-    loadChildren: () => 
-      loadRemoteModule({
-        type: 'module',
-        remoteEntry: 'http://localhost:4201/remoteEntry.js',
-        exposedModule: './TestModule',
-      }).then(m => m.TestModule)
-  }
+  { path: '', loadChildren: () => import('./host-page/host-page.module').then(m => m.HostPageModule) },
 ];
 
 @NgModule({
