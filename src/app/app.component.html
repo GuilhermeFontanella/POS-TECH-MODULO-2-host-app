@@ -11,24 +11,28 @@
              <div *ngSwitchCase="'desktop'" class="container">
                 <nz-layout>
                     <nz-sider style="background-color: #e4ede3;">
-                        <div>
-                            <ng-template #mfe></ng-template>
-                        </div>
+                        <ng-container *ngIf="screenType === 'desktop'">
+                            <ng-template #mfeSidemenu>l</ng-template>
+                        </ng-container>
                     </nz-sider>
                     <app-component-wrapper style="width: 100%; background-color: #e4ede3;"></app-component-wrapper>
                 </nz-layout>
             </div>
             <nz-layout *ngSwitchCase="'tablet'">
                 <nz-header>
-                    <ng-template #mfe></ng-template>
+                    <ng-container *ngIf="screenType === 'tablet'">
+                        <ng-template #mfeNavbar></ng-template>
+                    </ng-container>
                 </nz-header>
-                <!-- <app-component-wrapper style="background-color: #e4ede3;"></app-component-wrapper> -->
+                <app-component-wrapper style="background-color: #e4ede3;"></app-component-wrapper>
             </nz-layout>
             <nz-layout *ngSwitchCase="'mobile'">
                 <nz-content>
-                    <ng-template #mfe></ng-template>
+                    <ng-container *ngIf="screenType === 'mobile'">
+                        <ng-template #mfeNavbar></ng-template>
+                    </ng-container>
                 </nz-content>
-                <!-- <app-component-wrapper style="background-color: #e4ede3;"></app-component-wrapper> -->
+                <app-component-wrapper style="background-color: #e4ede3;"></app-component-wrapper>
             </nz-layout>
         </div>
     </div>
