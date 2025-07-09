@@ -1,10 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { loadRemoteModule } from '@angular-architects/module-federation';
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./host-page/host-page.module').then(m => m.HostPageModule) },
+  {
+    title: '',
+    path: '',
+    redirectTo: '/home-page',
+    pathMatch: 'full',
+  },
+  {
+    title: 'Home page',
+    path: 'home-page',
+    loadChildren: () => import('./home-page/home-page.module')
+      .then(m => m.HomePageModule),
+  }
 ];
 
 @NgModule({

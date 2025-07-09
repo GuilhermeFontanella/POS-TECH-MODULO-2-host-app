@@ -1,1 +1,35 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+
+<section class="container">
+</section>
+<nz-layout>
+    <nz-header>
+        <app-top-navbar></app-top-navbar>
+    </nz-header>
+    <div class="pageContent">
+        <div [ngSwitch]="screenType">
+             <div *ngSwitchCase="'desktop'" class="container">
+                <nz-layout>
+                    <nz-sider style="background-color: #e4ede3;">
+                        <div>
+                            <ng-template #mfe></ng-template>
+                        </div>
+                    </nz-sider>
+                    <app-component-wrapper style="width: 100%; background-color: #e4ede3;"></app-component-wrapper>
+                </nz-layout>
+            </div>
+            <nz-layout *ngSwitchCase="'tablet'">
+                <nz-header>
+                    <ng-template #mfe></ng-template>
+                </nz-header>
+                <!-- <app-component-wrapper style="background-color: #e4ede3;"></app-component-wrapper> -->
+            </nz-layout>
+            <nz-layout *ngSwitchCase="'mobile'">
+                <nz-content>
+                    <ng-template #mfe></ng-template>
+                </nz-content>
+                <!-- <app-component-wrapper style="background-color: #e4ede3;"></app-component-wrapper> -->
+            </nz-layout>
+        </div>
+    </div>
+</nz-layout>

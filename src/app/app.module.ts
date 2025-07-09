@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent, ContentWrapperComponent } from './app.component';
+import { NzLayoutModule } from 'ng-zorro-antd/layout'
+import { TopNavbarModule } from 'src/component/top-navbar/top-navbar.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -10,7 +13,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NzLayoutModule,
+    TopNavbarModule,
+    HttpClientModule,
+    ContentWrapperComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
