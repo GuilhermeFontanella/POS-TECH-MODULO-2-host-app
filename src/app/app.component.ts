@@ -1,7 +1,8 @@
 import { loadRemoteModule } from '@angular-architects/module-federation';
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, HostListener, Injector, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, HostListener, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { fromEvent, Subscription } from 'rxjs';
 import { checkScreenSize, ScreenType } from 'src/utils/check-screen-size';
 
 @Component({
@@ -21,12 +22,12 @@ export class ContentWrapperComponent {}
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   screenType: ScreenType = 'desktop';
   @HostListener('window:resize', ['$event']) onWindowResize() {
     console.log(checkScreenSize(window.innerWidth))
     this.screenType = checkScreenSize(window.innerWidth);
-  }
+  } 
   @ViewChild('mfeNavbar', { read: ViewContainerRef })
       navbarRef!: ViewContainerRef;
   @ViewChild('mfeSidemenu', { read: ViewContainerRef })
@@ -36,14 +37,29 @@ export class AppComponent implements OnInit {
   title = 'mfe-host';
   private componentNavBar: any;
   private componentSideMenu: any;
+  private $navbarNavigate?: Subscription;
 
-  constructor(private injector: Injector) {
+  constructor(
+    private injector: Injector,
+    private router: Router
+  ) {
     this.screenType = checkScreenSize(window.innerWidth);
   }
 
   async ngOnInit() {
     this.getMfeSidemenu();
-    this.getNavBarMfe();     
+    this.getNavBarMfe();
+  }
+
+  ngAfterContentInit(): void {
+    this.$navbarNavigate = fromEvent<CustomEvent>(window, 'mfe-navbar-navigate')
+      .subscribe({
+        next: (value: {detail: string}) => this.router.navigate([value?.detail]),
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.$navbarNavigate?.unsubscribe();
   }
 
   async getNavBarMfe() {
