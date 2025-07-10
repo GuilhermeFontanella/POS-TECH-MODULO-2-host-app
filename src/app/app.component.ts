@@ -25,7 +25,6 @@ export class ContentWrapperComponent {}
 export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   screenType: ScreenType = 'desktop';
   @HostListener('window:resize', ['$event']) onWindowResize() {
-    console.log(checkScreenSize(window.innerWidth))
     this.screenType = checkScreenSize(window.innerWidth);
     this.rebuildMfeComponents();
   } 
@@ -88,17 +87,18 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   private rebuildMfeComponents() {
-    this.navbarRef?.clear();
-    this.sideMenuRef?.clear();
-
-    if (this.screenType === 'mobile' || this.screenType === 'tablet') {
-      this.navbarRef.createComponent(this.componentNavBar, {
-        injector: this.injector
-      });
-    } else if (this.screenType === 'desktop') {
-      this.sideMenuRef.createComponent(this.componentSideMenu, {
-        injector: this.injector,
-      });
-    }
+    setTimeout(() => {
+      if (this.screenType === 'mobile' || this.screenType === 'tablet') {
+        this.navbarRef?.clear();
+        this.navbarRef.createComponent(this.componentNavBar, {
+          injector: this.injector
+        });
+      } else if (this.screenType === 'desktop') {
+        this.sideMenuRef?.clear();
+        this.sideMenuRef.createComponent(this.componentSideMenu, {
+          injector: this.injector,
+        });
+      }
+    }, 10);
   }
 }
