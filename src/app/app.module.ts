@@ -6,6 +6,14 @@ import { AppComponent, ContentWrapperComponent } from './app.component';
 import { NzLayoutModule } from 'ng-zorro-antd/layout'
 import { TopNavbarModule } from 'src/component/top-navbar/top-navbar.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
+import {
+  MenuOutline,
+  UserOutline,
+  LogoutOutline
+} from '@ant-design/icons-angular/icons';
+
+const icons = [MenuOutline, UserOutline, LogoutOutline];
 
 @NgModule({
   declarations: [
@@ -17,9 +25,13 @@ import { HttpClientModule } from '@angular/common/http';
     NzLayoutModule,
     TopNavbarModule,
     HttpClientModule,
-    ContentWrapperComponent
+    ContentWrapperComponent,
+    NzIconModule
   ],
-  providers: [],
+  providers: [
+    {provide: NZ_ICONS, useValue:icons}
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

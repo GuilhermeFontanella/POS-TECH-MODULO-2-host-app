@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   @HostListener('window:resize', ['$event']) onWindowResize() {
     console.log(checkScreenSize(window.innerWidth))
     this.screenType = checkScreenSize(window.innerWidth);
+    this.rebuildMfeComponents();
   } 
   @ViewChild('mfeNavbar', { read: ViewContainerRef })
       navbarRef!: ViewContainerRef;
@@ -84,5 +85,20 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
     this.sideMenuRef.createComponent(this.componentSideMenu, {
       injector: this.injector,
     });
+  }
+
+  private rebuildMfeComponents() {
+    this.navbarRef?.clear();
+    this.sideMenuRef?.clear();
+
+    if (this.screenType === 'mobile' || this.screenType === 'tablet') {
+      this.navbarRef.createComponent(this.componentNavBar, {
+        injector: this.injector
+      });
+    } else if (this.screenType === 'desktop') {
+      this.sideMenuRef.createComponent(this.componentSideMenu, {
+        injector: this.injector,
+      });
+    }
   }
 }
