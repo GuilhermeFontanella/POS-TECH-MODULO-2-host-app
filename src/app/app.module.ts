@@ -10,10 +10,13 @@ import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
 import {
   MenuOutline,
   UserOutline,
-  LogoutOutline
+  LogoutOutline,
+  EyeInvisibleFill,
+  EyeFill
 } from '@ant-design/icons-angular/icons';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
-const icons = [MenuOutline, UserOutline, LogoutOutline];
+const icons = [MenuOutline, UserOutline, LogoutOutline, EyeFill, EyeInvisibleFill];
 
 @NgModule({
   declarations: [
