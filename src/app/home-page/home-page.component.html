@@ -1,7 +1,16 @@
-
-
-
-<ng-container >
+<!-- <ng-container >
     <ng-template #homePageRef></ng-template>
     <ng-template #mfeSidemenu>l</ng-template>
-</ng-container>
+</ng-container> -->
+
+<div [ngClass]="screenType !== 'desktop' ? 'mobileLayout' : 'desktopLayout'">
+    <main class="main">
+        <section class="main__card-center">
+            <section class="main__card-center-up">center up</section>
+            <section class="main__card-center-down">center dow</section>
+        </section>
+        <section class="main__card-left">
+            <ng-template #mfeExtrato></ng-template>
+        </section>
+    </main>
+</div>

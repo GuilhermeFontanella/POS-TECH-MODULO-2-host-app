@@ -14,16 +14,19 @@ export class HomePageComponent implements OnInit {
     this.screenType = checkScreenSize(window.innerWidth);
     this.rebuildMfeComponents();
   }
+  @ViewChild('mfeExtrato', { read: ViewContainerRef })
+      extratoRef!: ViewContainerRef;
 
   public screenType: ScreenType = 'desktop';
   private homeComponent: any;
+  private componentExtrato: any;
 
   constructor(private injector: Injector) {
     this.screenType = checkScreenSize(window.innerWidth);
   }
 
   ngOnInit(): void {
-    
+    this.getMfeExtrato();
     this.getMfeHome();
   }
 
@@ -40,6 +43,18 @@ export class HomePageComponent implements OnInit {
       injector: this.injector,
     });
   }
+
+  async getMfeExtrato() {
+  this.componentExtrato = await loadRemoteModule({
+    type: 'module',
+    remoteEntry: 'http://localhost:4204/remoteEntry.js',
+    exposedModule: './ExtratoComponent',
+  }).then((m: any) => m.ExtratoComponent);
+
+  this.extratoRef.createComponent(this.componentExtrato, {
+    injector: this.injector,
+  });
+}
 
   private rebuildMfeComponents() {
     setTimeout(() => {
