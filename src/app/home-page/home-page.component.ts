@@ -14,16 +14,18 @@ export class HomePageComponent implements OnInit {
     this.screenType = checkScreenSize(window.innerWidth);
     this.rebuildMfeComponents();
   }
+  @ViewChild('mfeHome', { read: ViewContainerRef }) 
+    homeRef!: ViewContainerRef;
 
   public screenType: ScreenType = 'desktop';
   private homeComponent: any;
+  private componentExtrato: any;
 
   constructor(private injector: Injector) {
     this.screenType = checkScreenSize(window.innerWidth);
   }
 
   ngOnInit(): void {
-    
     this.getMfeHome();
   }
 
@@ -36,11 +38,10 @@ export class HomePageComponent implements OnInit {
 
     console.log(this.homeComponent)
 
-    this.homePageRef.createComponent(this.homeComponent, {
+    this.homeRef.createComponent(this.homeComponent, {
       injector: this.injector,
     });
   }
-
   private rebuildMfeComponents() {
     setTimeout(() => {
       
