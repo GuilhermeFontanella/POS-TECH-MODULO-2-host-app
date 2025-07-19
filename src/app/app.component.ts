@@ -32,12 +32,16 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
       navbarRef!: ViewContainerRef;
   @ViewChild('mfeSidemenu', { read: ViewContainerRef })
       sideMenuRef!: ViewContainerRef;
+  @ViewChild('mfeExtrato', { read: ViewContainerRef })
+      extratoRef!: ViewContainerRef;
   
   
   title = 'mfe-host';
   private componentNavBar: any;
   private componentSideMenu: any;
   private $navbarNavigate?: Subscription;
+  private componentExtrato: any;
+  
 
   constructor(
     private injector: Injector,
@@ -49,13 +53,13 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   async ngOnInit() {
     this.getMfeSidemenu();
     this.getNavBarMfe();
+    this.getMfeExtrato();
   }
 
   ngAfterContentInit(): void {
     this.$navbarNavigate = fromEvent<CustomEvent>(window, 'mfe-navbar-navigate')
-      .subscribe({
-        next: (value: {detail: string}) => this.router.navigate([value?.detail]),
-      });
+      .subscribe({ next: (value: {detail: string}) => this.router.navigate([value?.detail])});
+      
   }
 
   ngOnDestroy(): void {
@@ -86,18 +90,27 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
     });
   }
 
+  async getMfeExtrato() {
+    this.componentExtrato = await loadRemoteModule({
+      type: 'module',
+      remoteEntry: 'http://localhost:4204/remoteEntry.js',
+      exposedModule: './ExtratoComponent',
+    }).then((m: any) => m.ExtratoComponent);
+
+    this.extratoRef.createComponent(this.componentExtrato, {
+      injector: this.injector,
+    });
+  }
+
+
   private rebuildMfeComponents() {
     setTimeout(() => {
       if (this.screenType === 'mobile' || this.screenType === 'tablet') {
         this.navbarRef?.clear();
-        this.navbarRef.createComponent(this.componentNavBar, {
-          injector: this.injector
-        });
+        this.navbarRef.createComponent(this.componentNavBar, { injector: this.injector });
       } else if (this.screenType === 'desktop') {
         this.sideMenuRef?.clear();
-        this.sideMenuRef.createComponent(this.componentSideMenu, {
-          injector: this.injector,
-        });
+        this.sideMenuRef.createComponent(this.componentSideMenu, { injector: this.injector });
       }
     }, 10);
   }
