@@ -61,6 +61,6 @@ npm start
 ## This will start the mfe-navbar at:
 ➡️ http://localhost:4200
 
-⚠️ You will need the NavbarApp (mfe-navbar) and HomeApp (mfe-home) running simultaneously to see the navbar and home components rendered and working within the full app.
-🔗 [https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-navbar](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-navbar)
+⚠️ You will need the NavbarApp (mfe-navbar) and HomeApp (mfe-home) running simultaneously to see the navbar and home components rendered and working within the full app.  
+🔗 [https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-navbar](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-navbar)  
 🔗 [https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-home](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-home)
