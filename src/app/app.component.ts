@@ -56,6 +56,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   async ngOnInit() {
     this.getMfeSidemenu();
     this.getNavBarMfe();
+    //setTimeout(() => this.themeHandler.changeTheme(), 0);
   }
 
   ngAfterContentInit(): void {
@@ -72,7 +73,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   async getNavBarMfe() {
     this.componentNavBar = await loadRemoteModule({
       type: 'module',
-      remoteEntry: 'https://mfe-navbar-byhfgzhsf4dmdkdc.canadacentral-01.azurewebsites.net/remoteEntry.js', /* <-- alterar para http://localhost:4201/remoteEntry.js */
+      remoteEntry: 'https://mfe-navbar-byhfgzhsf4dmdkdc.canadacentral-01.azurewebsites.net/remoteEntry.js',
       exposedModule: './NavbarComponent',
     }).then((m: any) => m.NavbarComponent);
 
@@ -84,7 +85,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   async getMfeSidemenu() {
     this.componentSideMenu = await loadRemoteModule({
       type: 'module',
-      remoteEntry: 'https://mfe-navbar-byhfgzhsf4dmdkdc.canadacentral-01.azurewebsites.net/remoteEntry.js', /* <-- alterar para http://localhost:4201/remoteEntry.js */
+      remoteEntry: 'https://mfe-navbar-byhfgzhsf4dmdkdc.canadacentral-01.azurewebsites.net/remoteEntry.js',
       exposedModule: './LateralMenuComponent',
     }).then((m: any) => m.LateralMenuComponent);
 

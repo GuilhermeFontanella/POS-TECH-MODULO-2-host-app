@@ -1,21 +1,19 @@
 <!-- <router-outlet></router-outlet> -->
 
+
 <nz-layout>
     <nz-header>
         <app-top-navbar></app-top-navbar>
     </nz-header>
-  <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
-    <div class="pageContent" data-theme="background" appThemeApplier> 
+    <div class="pageContent" data-theme="background" appThemeApplier>
         <div [ngSwitch]="screenType">
              <div *ngSwitchCase="'desktop'" class="container">
                 <nz-layout>
-                   <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
                     <nz-sider data-theme="background" appThemeApplier>
                         <ng-container *ngIf="screenType === 'desktop'">
                             <ng-template #mfeSidemenu>l</ng-template>
                         </ng-container>
                     </nz-sider>
-                   <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
                     <app-component-wrapper data-theme="background" appThemeApplier style="width: 100%;"></app-component-wrapper>
                 </nz-layout>
             </div>
@@ -25,7 +23,6 @@
                         <ng-template #mfeNavbar></ng-template>
                     </ng-container>
                 </nz-header>
-               <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
                 <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
             </nz-layout>
             <nz-layout *ngSwitchCase="'mobile'">
@@ -34,10 +31,8 @@
                         <ng-template #mfeNavbar></ng-template>
                     </ng-container>
                 </nz-content>
-               <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
                 <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
             </nz-layout>
         </div>
     </div>
 </nz-layout>
-

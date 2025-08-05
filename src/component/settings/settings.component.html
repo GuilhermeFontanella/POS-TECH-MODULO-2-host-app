@@ -1,0 +1,42 @@
+<div nz-row nzAlign="middle">
+    <div nz-col nzSpan="3">
+        <nz-avatar nz-dropdown nzTrigger="click" [nzSize]="44" nzIcon="user"></nz-avatar>
+    </div>
+    <div nz-col nzSpan="10" data-theme="text" appThemeApplier>Fulano de Tal</div>
+</div>
+<nz-divider nzPlain nzText="Cores da aplicação" nzOrientation="left"></nz-divider>
+<div nz-col nzAlign="middle">
+    <div nz-row nzAlign="middle">
+        <div nz-col nzSpan="3">
+            <nz-color-picker [nzValue]="mainTheme$ | async" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('main', $event.color.originalInput)"></nz-color-picker>
+        </div>
+        <div nz-col nzSpan="10" data-theme="text" appThemeApplier>Tema principal</div>
+    </div>
+    <div nz-row nzAlign="middle">
+        <div nz-col nzSpan="3">
+            <nz-color-picker [nzValue]="secondary$ | async" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('secondary', $event.color.originalInput)"></nz-color-picker>
+        </div>
+        <div nz-col nzSpan="10" data-theme="text" appThemeApplier>Tema secundário</div>
+    </div>
+    <div nz-row nzAlign="middle">
+        <div nz-col nzSpan="3">
+            <nz-color-picker [nzValue]="titleColor$ | async" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('title', $event.color.originalInput)"></nz-color-picker>
+        </div>
+        <div nz-col nzSpan="10" data-theme="text" appThemeApplier>Cor dos títulos</div>
+    </div>
+    <div nz-row nzAlign="middle">
+        <div nz-col nzSpan="3">
+            <nz-color-picker [nzValue]="textColor$ | async" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('text', $event.color.originalInput)"></nz-color-picker>
+        </div>
+        <div nz-col nzSpan="10" data-theme="text" appThemeApplier>Cor do texto</div>
+    </div>
+     <div nz-row nzAlign="middle">
+        <div nz-col nzSpan="3">
+            <nz-color-picker [nzValue]="background$ | async" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('background', $event.color.originalInput)"></nz-color-picker>
+        </div>
+        <div nz-col nzSpan="10" data-theme="text" appThemeApplier>Plano de fundo</div>
+    </div>
+    <div style="margin-top: 16px;">
+        <button nz-button nzType="primary" (click)="reset()">Redefinir</button>
+    </div>
+</div>

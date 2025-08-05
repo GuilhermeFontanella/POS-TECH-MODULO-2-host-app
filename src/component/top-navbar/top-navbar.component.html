@@ -1,6 +1,29 @@
-<div class="topNavbar">
+<div data-theme="main-theme" appThemeApplier class="topNavbar">
     <div class="container" style="height: 100%;">
-        <span class="userName">{{userName}}</span>
-        <nz-avatar [nzSize]="44" nzIcon="user"></nz-avatar>
+        <span data-theme="title" class="userName">{{userName}}</span>
+        <nz-avatar nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" [nzSize]="44" nzIcon="user"></nz-avatar>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+                <li *ngFor="let option of menuOptions" nz-menu-item>
+                    <nz-space [nzSize]="16" (click)="handleOptionClick(option)">
+                        <span *nzSpaceItem nz-icon [nzType]="option.icon" nzTheme="outline"></span>
+                        <span data-theme="text" appThemeApplier *nzSpaceItem>{{option.label}}</span>
+                    </nz-space>
+                </li>
+            </ul>
+        </nz-dropdown-menu>
     </div>
 </div>
+
+<nz-modal
+nzCancelText="Cancelar"
+nzOkText="Salvar"
+[(nzVisible)]="isVisible"
+[nzTitle]="optionSelected ?? 'Teste'"
+(nzAfterOpen)="loadSettingsComponent()"
+(nzOnCancel)="handleCancel()"
+(nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+        <ng-template #content></ng-template>
+    </ng-container>
+</nz-modal>

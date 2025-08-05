@@ -1,0 +1,1 @@
+export type ACTION = 'main' | 'secondary' | 'title' | 'text' | 'background';

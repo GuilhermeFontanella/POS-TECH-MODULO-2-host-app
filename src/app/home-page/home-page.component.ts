@@ -30,7 +30,7 @@ export class HomePageComponent implements OnInit {
   async getMfeHome() {
     this.homeComponent = await loadRemoteModule({
       type: 'module',
-      remoteEntry: 'https://mfe-home-hwcqe3hgg4avhbbe.canadacentral-01.azurewebsites.net/remoteEntry.js', /* alterar para http://localhost:4202/remoteEntry.js */
+      remoteEntry: 'https://mfe-home-hwcqe3hgg4avhbbe.canadacentral-01.azurewebsites.net/remoteEntry.js',
       exposedModule: './HomeComponent',
     }).then((m: any) => m.HomeComponent);
 
