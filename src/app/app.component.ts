@@ -1,9 +1,13 @@
 import { loadRemoteModule } from '@angular-architects/module-federation';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, HostListener, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { fromEvent, Subscription } from 'rxjs';
 import { checkScreenSize, ScreenType } from 'src/utils/check-screen-size';
+import { ThemeHandler } from 'src/utils/functions/change-theme';
+import { Theme } from 'src/utils/reducers/them.reducer';
 
 @Component({
   selector: 'app-component-wrapper',
@@ -32,34 +36,33 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
       navbarRef!: ViewContainerRef;
   @ViewChild('mfeSidemenu', { read: ViewContainerRef })
       sideMenuRef!: ViewContainerRef;
-  @ViewChild('mfeExtrato', { read: ViewContainerRef })
-      extratoRef!: ViewContainerRef;
+  //private themeHandler!: ThemeHandler;
   
   
   title = 'mfe-host';
   private componentNavBar: any;
   private componentSideMenu: any;
   private $navbarNavigate?: Subscription;
-  private componentExtrato: any;
-  
 
   constructor(
     private injector: Injector,
-    private router: Router
+    private router: Router,
+    private store: Store<{theme: Theme}>
   ) {
     this.screenType = checkScreenSize(window.innerWidth);
+    //this.themeHandler = new ThemeHandler(store);
   }
 
   async ngOnInit() {
     this.getMfeSidemenu();
     this.getNavBarMfe();
-    this.getMfeExtrato();
   }
 
   ngAfterContentInit(): void {
     this.$navbarNavigate = fromEvent<CustomEvent>(window, 'mfe-navbar-navigate')
-      .subscribe({ next: (value: {detail: string}) => this.router.navigate([value?.detail])});
-      
+      .subscribe({
+        next: (value: {detail: string}) => this.router.navigate([value?.detail]),
+      });
   }
 
   ngOnDestroy(): void {
@@ -69,7 +72,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   async getNavBarMfe() {
     this.componentNavBar = await loadRemoteModule({
       type: 'module',
-      remoteEntry: 'http://localhost:4201/remoteEntry.js',
+      remoteEntry: 'https://mfe-navbar-byhfgzhsf4dmdkdc.canadacentral-01.azurewebsites.net/remoteEntry.js', /* <-- alterar para http://localhost:4201/remoteEntry.js */
       exposedModule: './NavbarComponent',
     }).then((m: any) => m.NavbarComponent);
 
@@ -81,7 +84,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
   async getMfeSidemenu() {
     this.componentSideMenu = await loadRemoteModule({
       type: 'module',
-      remoteEntry: 'http://localhost:4201/remoteEntry.js',
+      remoteEntry: 'https://mfe-navbar-byhfgzhsf4dmdkdc.canadacentral-01.azurewebsites.net/remoteEntry.js', /* <-- alterar para http://localhost:4201/remoteEntry.js */
       exposedModule: './LateralMenuComponent',
     }).then((m: any) => m.LateralMenuComponent);
 
@@ -90,27 +93,18 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
     });
   }
 
-  async getMfeExtrato() {
-    this.componentExtrato = await loadRemoteModule({
-      type: 'module',
-      remoteEntry: 'http://localhost:4204/remoteEntry.js',
-      exposedModule: './ExtratoComponent',
-    }).then((m: any) => m.ExtratoComponent);
-
-    this.extratoRef.createComponent(this.componentExtrato, {
-      injector: this.injector,
-    });
-  }
-
-
   private rebuildMfeComponents() {
     setTimeout(() => {
       if (this.screenType === 'mobile' || this.screenType === 'tablet') {
         this.navbarRef?.clear();
-        this.navbarRef.createComponent(this.componentNavBar, { injector: this.injector });
+        this.navbarRef.createComponent(this.componentNavBar, {
+          injector: this.injector
+        });
       } else if (this.screenType === 'desktop') {
         this.sideMenuRef?.clear();
-        this.sideMenuRef.createComponent(this.componentSideMenu, { injector: this.injector });
+        this.sideMenuRef.createComponent(this.componentSideMenu, {
+          injector: this.injector,
+        });
       }
     }, 10);
   }
