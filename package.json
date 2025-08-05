@@ -1,10 +1,10 @@
 {
   "name": "mfe-host",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --port 4200",
-    "build": "ng build",
+    "start": "ng serve",
+    "build": "ng build mfe-host --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
@@ -19,10 +19,12 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
-    "@ctrl/tinycolor": "^4.1.0",
+    "@ctrl/tinycolor": "^3.6.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
+    "@ngrx/store": "^16.3.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
+    "ng-antd-color-picker": "^0.0.2",
     "ng-zorro-antd": "^16.2.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
