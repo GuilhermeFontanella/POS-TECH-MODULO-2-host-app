@@ -4,10 +4,10 @@ import { HomePageComponent } from './home-page.component';
 
 const routes: Routes = [
   {
-    title: '',
+    title: 'Página inicial',
     path: '',
     pathMatch: 'full',
-    component: HomePageComponent
+    component: HomePageComponent,
   },
 ];
 
