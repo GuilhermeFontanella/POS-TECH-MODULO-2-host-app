@@ -1,21 +1,22 @@
 <!-- <router-outlet></router-outlet> -->
 
-<section class="container">
-</section>
 <nz-layout>
     <nz-header>
         <app-top-navbar></app-top-navbar>
     </nz-header>
-    <div class="pageContent">
+  <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
+    <div class="pageContent" data-theme="background" appThemeApplier> 
         <div [ngSwitch]="screenType">
              <div *ngSwitchCase="'desktop'" class="container">
                 <nz-layout>
-                    <nz-sider style="background-color: #e4ede3;">
+                   <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
+                    <nz-sider data-theme="background" appThemeApplier>
                         <ng-container *ngIf="screenType === 'desktop'">
                             <ng-template #mfeSidemenu>l</ng-template>
                         </ng-container>
                     </nz-sider>
-                    <app-component-wrapper style="width: 100%; background-color: #e4ede3;"></app-component-wrapper>
+                   <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
+                    <app-component-wrapper data-theme="background" appThemeApplier style="width: 100%;"></app-component-wrapper>
                 </nz-layout>
             </div>
             <nz-layout *ngSwitchCase="'tablet'">
@@ -24,7 +25,8 @@
                         <ng-template #mfeNavbar></ng-template>
                     </ng-container>
                 </nz-header>
-                <app-component-wrapper style="background-color: #e4ede3;"></app-component-wrapper>
+               <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
+                <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
             </nz-layout>
             <nz-layout *ngSwitchCase="'mobile'">
                 <nz-content>
@@ -32,7 +34,8 @@
                         <ng-template #mfeNavbar></ng-template>
                     </ng-container>
                 </nz-content>
-                <app-component-wrapper style="background-color: #e4ede3;"></app-component-wrapper>
+               <!-- diretiva: appThemeApplier recebe via data-theme os parâmetros para aplicar o estado -->
+                <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
             </nz-layout>
         </div>
     </div>
