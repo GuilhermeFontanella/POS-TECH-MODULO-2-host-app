@@ -1,54 +1,42 @@
 import { loadRemoteModule } from '@angular-architects/module-federation';
-import { Component, HostListener, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { checkScreenSize, ScreenType } from 'src/utils/check-screen-size'
+import { Component, Injector, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { ScreenType } from 'src/utils/functions/check-screen-size'
+import { MFE_ENVIRONMENTS } from 'src/utils/constants/mfeEnvironments';
+import { rebuildMfeComponents } from 'src/utils/functions/rebuildMfeComponents';
 
 @Component({
   selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  template: `
+    <ng-container >
+      <ng-template #homePageRef></ng-template>
+    </ng-container>
+  `
 })
-export class HomePageComponent implements OnInit {
-  @ViewChild('homePageRef', { read: ViewContainerRef })
-        homePageRef!: ViewContainerRef;
-  @HostListener('window:resize', ['$event']) onWindowResize() {
-    this.screenType = checkScreenSize(window.innerWidth);
-    this.rebuildMfeComponents();
-  }
-
+export class HomePageComponent implements OnInit, OnChanges {
   public screenType: ScreenType = 'desktop';
   private homeComponent: any;
+  @ViewChild('homePageRef', { read: ViewContainerRef })
+    homePageRef!: ViewContainerRef;
 
-  constructor(private injector: Injector) {
-    this.screenType = checkScreenSize(window.innerWidth);
-  }
+  constructor(private injector: Injector) {}
 
   ngOnInit(): void {
-    
     this.getMfeHome();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['screenType']?.currentValue != changes['screenType']?.previousValue) {
+      rebuildMfeComponents(this.homePageRef, this.injector, this.homeComponent);
+    }
   }
 
   async getMfeHome() {
     this.homeComponent = await loadRemoteModule({
       type: 'module',
-      remoteEntry: 'https://mfe-home-hwcqe3hgg4avhbbe.canadacentral-01.azurewebsites.net/remoteEntry.js',
+      remoteEntry: MFE_ENVIRONMENTS.HomeComponent,
       exposedModule: './HomeComponent',
     }).then((m: any) => m.HomeComponent);
 
-    console.log(this.homeComponent)
-
-    this.homePageRef.createComponent(this.homeComponent, {
-      injector: this.injector,
-    });
+    rebuildMfeComponents(this.homePageRef, this.injector, this.homeComponent);
   }
-
-  private rebuildMfeComponents() {
-    setTimeout(() => {
-      
-        this.homePageRef?.clear();
-        this.homePageRef.createComponent(this.homeComponent, {
-          injector: this.injector
-        });
-    }, 10);
-  }
-
 }

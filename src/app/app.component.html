@@ -1,37 +1,32 @@
-<!-- <router-outlet></router-outlet> -->
-
-
 <nz-layout>
     <nz-header>
         <app-top-navbar></app-top-navbar>
     </nz-header>
     <div class="pageContent" data-theme="background" appThemeApplier>
         <div [ngSwitch]="screenType">
-             <div *ngSwitchCase="'desktop'" class="container">
-                <nz-layout>
+            <div class="container">
+                <nz-layout *ngSwitchCase="'desktop'">
                     <nz-sider data-theme="background" appThemeApplier>
-                        <ng-container *ngIf="screenType === 'desktop'">
-                            <ng-template #mfeSidemenu>l</ng-template>
-                        </ng-container>
+                            <app-side-menu [screenType]="screenType"></app-side-menu>
                     </nz-sider>
-                    <app-component-wrapper data-theme="background" appThemeApplier style="width: 100%;"></app-component-wrapper>
+                    <nz-content>
+                        <app-component-wrapper data-theme="background" appThemeApplier style="width: 100%;"></app-component-wrapper>
+                    </nz-content>
                 </nz-layout>
             </div>
             <nz-layout *ngSwitchCase="'tablet'">
                 <nz-header>
-                    <ng-container *ngIf="screenType === 'tablet'">
-                        <ng-template #mfeNavbar></ng-template>
-                    </ng-container>
+                    <app-navbar [screenType]="screenType"></app-navbar>
                 </nz-header>
-                <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
+                <nz-content>
+                    <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
+                </nz-content>
             </nz-layout>
             <nz-layout *ngSwitchCase="'mobile'">
+                <app-navbar [screenType]="screenType"></app-navbar>
                 <nz-content>
-                    <ng-container *ngIf="screenType === 'mobile'">
-                        <ng-template #mfeNavbar></ng-template>
-                    </ng-container>
+                    <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
                 </nz-content>
-                <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
             </nz-layout>
         </div>
     </div>
