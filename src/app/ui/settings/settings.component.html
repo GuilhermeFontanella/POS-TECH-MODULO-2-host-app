@@ -26,13 +26,13 @@
     </div>
     <div nz-row nzAlign="middle">
         <div nz-col nzSpan="3">
-            <nz-color-picker *nfIf="textColor$ | async as textColor" [nzValue]="textColor" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('text', $event.color.originalInput)"></nz-color-picker>
+            <nz-color-picker *ngIf="textColor$ | async as textColor" [nzValue]="textColor" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('text', $event.color.originalInput)"></nz-color-picker>
         </div>
         <div nz-col nzSpan="10" data-theme="text" appThemeApplier>Cor do texto</div>
     </div>
      <div nz-row nzAlign="middle">
         <div nz-col nzSpan="3">
-            <nz-color-picker *nfIf="background$ | async as background" [nzValue]="background" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('background', $event.color.originalInput)"></nz-color-picker>
+            <nz-color-picker *ngIf="background$ | async as background" [nzValue]="background" nzFormat="hex" (nzOnChange)="handleChangeThemeAction('background', $event.color.originalInput)"></nz-color-picker>
         </div>
         <div nz-col nzSpan="10" data-theme="text" appThemeApplier>Plano de fundo</div>
     </div>

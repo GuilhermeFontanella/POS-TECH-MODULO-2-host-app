@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { TopNavbarModule } from 'src/component/top-navbar/top-navbar.module';
+import { TopNavbarModule } from 'src/app/ui/top-navbar/top-navbar.module';
 import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
 import { themeReducer } from 'src/utils/reducers/them.reducer';
 import { AppRoutingModule } from './app-routing.module';

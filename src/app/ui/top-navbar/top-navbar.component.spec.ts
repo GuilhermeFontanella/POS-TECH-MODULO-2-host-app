@@ -15,6 +15,11 @@ import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
 import { themePortMock } from 'src/utils/mocks/themePortMock';
 import { SettingsModule } from '../settings/settings.module';
 import { PoweroffOutline, BulbOutline, SettingOutline, UserOutline } from '@ant-design/icons-angular/icons';
+import { TOP_NAVBAR } from 'src/app/ports/topnavbar/topNavbarToken';
+import { TopNavbarAdapter } from 'src/infra/topNavbarAdapter';
+import { UserData } from 'src/infra/userData';
+import { USER_DATA_PORT } from 'src/app/ports/userData/userDataToken';
+import { LOCAL_STORAGE } from 'src/app/ports/storage/localStorage.token';
 const icons = [PoweroffOutline, BulbOutline, SettingOutline, UserOutline];
 
 describe('TopNavbarComponent', () => {
@@ -37,6 +42,9 @@ describe('TopNavbarComponent', () => {
       ],
       providers: [
         { provide: THEME_PORT_LOADER, useValue: themePortMock },
+        { provide: TOP_NAVBAR, useClass: TopNavbarAdapter },
+        { provide: USER_DATA_PORT, useClass: UserData },
+        { provide: LOCAL_STORAGE, useValue: localStorage },
         { provide: Store, useValue: storeMock },
         { provide: NZ_ICONS, useValue: icons }
       ]

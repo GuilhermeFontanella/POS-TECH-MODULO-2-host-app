@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NzLayoutModule } from 'ng-zorro-antd/layout'
-import { TopNavbarModule } from 'src/component/top-navbar/top-navbar.module';
+import { TopNavbarModule } from 'src/app/ui/top-navbar/top-navbar.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
 import {
