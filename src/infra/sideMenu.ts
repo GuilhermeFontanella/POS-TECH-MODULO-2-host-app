@@ -1,8 +1,8 @@
 import { Injectable, Injector, Type, ViewContainerRef } from "@angular/core";
 import { loadRemoteModule } from "@angular-architects/module-federation";
 import { rebuildMfeComponents } from "src/utils/functions/rebuildMfeComponents";
-import { MFE_ENVIRONMENTS } from "src/utils/constants/mfeEnvironments";
 import { MfePortLoader } from "../app/ports/mfePortLoader.interface";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class ModuleFederationSideMenuLoader implements MfePortLoader {
@@ -13,7 +13,7 @@ export class ModuleFederationSideMenuLoader implements MfePortLoader {
     async load(container: ViewContainerRef) {
         this.component = await loadRemoteModule({
             type: 'module',
-            remoteEntry: MFE_ENVIRONMENTS.LateralMenuComponent,
+            remoteEntry: environment.LATERAL_MENU_COMPONENT,
             exposedModule: './LateralMenuComponent',
         }).then(m => m.LateralMenuComponent);
 

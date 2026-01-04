@@ -5,7 +5,8 @@ import { IUser } from "src/utils/model/user-interface";
 
 @Injectable()
 export class UserData implements UserDataPort { 
-    private userData?: IUser; 
+    private userData!: IUser;
+
     constructor(@Inject(LOCAL_STORAGE) private storage: Storage) {}
 
     storeData() {

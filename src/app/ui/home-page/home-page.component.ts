@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, Inject, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { ScreenType } from 'src/utils/functions/check-screen-size'
 import { MfePortLoader } from 'src/app/ports/mfePortLoader.interface';
-import { HOME_LOADER } from 'src/app/ports/home/homeLoaderToken';
+import { HOME_LOADER } from 'src/app/ports/mfePort/home/homeLoaderToken';
+
 
 @Component({
   selector: 'app-home-page',

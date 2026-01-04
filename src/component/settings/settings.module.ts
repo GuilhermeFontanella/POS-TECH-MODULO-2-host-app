@@ -12,9 +12,7 @@ import { THEME_PORT_LOADER } from 'src/app/ports/theme/themePortToken';
 import { ThemeNgRxAdapter } from 'src/infra/theme';
 
 @NgModule({
-  declarations: [
-    SettingsComponent
-  ],
+  declarations: [SettingsComponent],
   imports: [
     CommonModule,
     NzGridModule,

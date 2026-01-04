@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
 import { ScreenType } from 'src/utils/functions/check-screen-size';
 import { ModuleFederationSideMenuLoader } from '../../../infra/sideMenu';
-import { SIDE_MENU_LOADER } from '../../ports/sideMenu/sideMenuLoaderToken';
 import { MfePortLoader } from '../../ports/mfePortLoader.interface';
+import { SIDE_MENU_LOADER } from 'src/app/ports/mfePort/sideMenu/sideMenuLoaderToken';
 
 @Component({
   selector: 'app-side-menu',
@@ -19,9 +19,7 @@ import { MfePortLoader } from '../../ports/mfePortLoader.interface';
     CommonModule
   ],
   providers: [
-    { provide:  SIDE_MENU_LOADER,
-      useClass: ModuleFederationSideMenuLoader
-    }
+    { provide:  SIDE_MENU_LOADER, useClass: ModuleFederationSideMenuLoader }
   ]
 })
 export class SideMenuComponent implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {

@@ -1,8 +1,9 @@
 import { Component, Inject, Injector, ViewChild, ViewContainerRef } from '@angular/core';
 import { SettingsComponent } from '../settings/settings.component';
 import { MenuOption } from 'src/utils/model/menuOption';
-import { UserDataPort } from 'src/app/ports/userData/userDataPort';
-import { USER_DATA_PORT } from 'src/app/ports/userData/userDataToken';
+import { Observable } from 'rxjs';
+import { TOP_NAVBAR } from 'src/app/ports/topnavbar/topNavbarToken';
+import { TopNavbarPort } from 'src/app/ports/topnavbar/topNavbarPort';
 
 @Component({
   selector: 'app-top-navbar',
@@ -10,12 +11,8 @@ import { USER_DATA_PORT } from 'src/app/ports/userData/userDataToken';
   styleUrls: ['./top-navbar.component.scss']
 })
 export class TopNavbarComponent {
-  userName: string = '';
-  menuOptions: MenuOption[] = [
-    {label: 'Sair', path: '/login', id: 'logout', icon: 'poweroff', dark: false, disabled: false},
-    {label: 'Modo escuro', path: '', id: 'theme', icon: 'bulb', dark: false, disabled: false},
-    {label: 'Configurações', path: '/', id: 'settings', icon: 'setting', dark: false, disabled: false}
-  ];
+  userName!:string;
+  menuOptions$!: Observable<MenuOption[]>;
   isVisible: boolean = false;
   optionSelected: string | null = null;
 
@@ -24,19 +21,20 @@ export class TopNavbarComponent {
 
   constructor(
     private injector: Injector,
-    @Inject(USER_DATA_PORT) private userData: UserDataPort
+    @Inject(TOP_NAVBAR) private topNavbar: TopNavbarPort
   ) {
-    this.userName = this.userData.getUserName() ?? '';
+    this.userName = this.topNavbar.getUserName() ?? '';
+    this.menuOptions$ = this.topNavbar.menuOptions$();
   }
 
   handleOptionClick(event: any) {
-    this.optionSelected = event.label;
     switch (event.id) {
-      case 'loggout':
-        return null;
+      case 'logout':
+        return this.topNavbar.logout();
       case 'theme':
-        return null;
+        return this.topNavbar.toggleTheme();
       case 'settings':
+        this.topNavbar.openSettings();
         return this.isVisible = true;
       default:
         return null
@@ -55,6 +53,6 @@ export class TopNavbarComponent {
     this.isVisible = true;
     this.contentRef.createComponent(SettingsComponent, {
       injector: this.injector
-    })
+    });
   }
 }

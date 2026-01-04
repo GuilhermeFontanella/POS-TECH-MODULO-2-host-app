@@ -4,7 +4,7 @@
         <nz-avatar nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" [nzSize]="44" nzIcon="user"></nz-avatar>
         <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu>
-                <li *ngFor="let option of menuOptions" nz-menu-item>
+                <li *ngFor="let option of menuOptions$ | async" nz-menu-item>
                     <nz-space [nzSize]="16" (click)="handleOptionClick(option)">
                         <span *nzSpaceItem nz-icon [nzType]="option.icon" nzTheme="outline"></span>
                         <span data-theme="text" appThemeApplier *nzSpaceItem>{{option.label}}</span>
@@ -19,7 +19,7 @@
 nzCancelText="Cancelar"
 nzOkText="Salvar"
 [(nzVisible)]="isVisible"
-[nzTitle]="optionSelected ?? 'Teste'"
+[nzTitle]="'Teste'"
 (nzAfterOpen)="loadSettingsComponent()"
 (nzOnCancel)="handleCancel()"
 (nzOnOk)="handleOk()">

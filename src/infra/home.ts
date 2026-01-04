@@ -1,7 +1,7 @@
 import { Injectable, Injector, Type, ViewContainerRef } from "@angular/core";
 import { loadRemoteModule } from "@angular-architects/module-federation";
 import { rebuildMfeComponents } from "src/utils/functions/rebuildMfeComponents";
-import { MFE_ENVIRONMENTS } from "src/utils/constants/mfeEnvironments";
+import { environment } from '../environments/environment';
 import { MfePortLoader } from "../app/ports/mfePortLoader.interface";
 
 @Injectable()
@@ -13,7 +13,7 @@ export class ModuleFederatioHomeLoader implements MfePortLoader {
     async load(container: ViewContainerRef) {
         this.component = await loadRemoteModule({
             type: 'module',
-            remoteEntry: MFE_ENVIRONMENTS.HomeComponent,
+            remoteEntry: environment.HOME_COMPONENT,
             exposedModule: './HomeComponent',
         }).then(m => m.HomeComponent);
 
