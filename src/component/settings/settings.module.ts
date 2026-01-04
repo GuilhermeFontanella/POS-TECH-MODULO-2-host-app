@@ -8,7 +8,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzColorPickerModule } from 'ng-zorro-antd/color-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
-
+import { THEME_PORT_LOADER } from 'src/app/ports/theme/themePortToken';
+import { ThemeNgRxAdapter } from 'src/infra/theme';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,9 @@ import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
     NzColorPickerModule,
     NzButtonModule,
     ThemeDirectiveModule
+  ],
+  providers: [
+    { provide: THEME_PORT_LOADER, useClass: ThemeNgRxAdapter }
   ]
 })
 export class SettingsModule { }

@@ -1,29 +1,66 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { TopNavbarModule } from 'src/component/top-navbar/top-navbar.module';
+import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
+import { themeReducer } from 'src/utils/reducers/them.reducer';
+import { AppRoutingModule } from './app-routing.module';
+import { ContentWrapperComponent } from './ui/component-wrapper/content-wrapper.component';
+import { NavbarComponent } from './ui/navbar/navbar.component';
+import { SideMenuComponent } from './ui/side-menu/side-menu.component';
+import { MenuOutline, UserOutline, LogoutOutline, EyeFill, EyeInvisibleFill, PoweroffOutline, BulbOutline, BulbFill, SettingOutline } from '@ant-design/icons-angular/icons';
+const icons = [
+  MenuOutline,
+  UserOutline,
+  LogoutOutline,
+  EyeFill,
+  EyeInvisibleFill,
+  PoweroffOutline,
+  BulbOutline,
+  BulbFill,
+  SettingOutline
+];
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NzLayoutModule,
+        TopNavbarModule,
+        HttpClientModule,
+        NzIconModule,
+        BrowserAnimationsModule,
+        StoreModule.forRoot({ theme: themeReducer }),
+        ThemeDirectiveModule,
+        ContentWrapperComponent,
+        SideMenuComponent,
+        NavbarComponent
+      ],
+      providers: [
+        { provide: NZ_ICONS, useValue: icons }
+      ]
+    }).compileComponents();
   });
 
-  it(`should have as title 'mfe-host'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('mfe-host');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('mfe-host app is running!');
   });
+
+  it('should create AppComponent', () => {
+    expect(component).toBeTruthy();
+  })
 });

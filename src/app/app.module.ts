@@ -55,7 +55,6 @@ const icons = [
   ],
   providers: [
     { provide: NZ_ICONS, useValue: icons }
-
   ],
   bootstrap: [AppComponent]
 })
