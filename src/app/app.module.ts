@@ -21,9 +21,9 @@ import {
 import { StoreModule } from '@ngrx/store';
 import { themeReducer } from 'src/utils/reducers/them.reducer';
 import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
-import { SideMenuComponent } from './side-menu/side-menu.component';
-import { ContentWrapperComponent } from './component-wrapper/content-wrapper.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { SideMenuComponent } from './ui/side-menu/side-menu.component';
+import { ContentWrapperComponent } from './ui/component-wrapper/content-wrapper.component';
+import { NavbarComponent } from './ui/navbar/navbar.component';
 
 const icons = [
   MenuOutline,

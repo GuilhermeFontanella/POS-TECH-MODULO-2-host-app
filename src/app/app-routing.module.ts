@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     title: 'Home page',
     path: 'home-page',
-    loadChildren: () => import('./home-page/home-page.module')
+    loadChildren: () => import('./ui/home-page/home-page.module')
       .then(m => m.HomePageModule),
   }
 ];

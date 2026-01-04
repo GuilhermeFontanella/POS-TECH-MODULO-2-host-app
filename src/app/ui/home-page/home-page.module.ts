@@ -8,6 +8,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomePageRoutingModule } from './home-page-routing.module';
+import { HOME_LOADER } from 'src/app/ports/home/homeLoaderToken';
+import { ModuleFederatioHomeLoader } from 'src/infra/home';
 
 
 @NgModule({
@@ -24,6 +26,12 @@ import { HomePageRoutingModule } from './home-page-routing.module';
     NzDividerModule,
     ReactiveFormsModule,
     FormsModule
+  ],
+  providers: [
+    {
+      provide: HOME_LOADER,
+      useClass: ModuleFederatioHomeLoader
+    }
   ]
 })
 export class HomePageModule { }
