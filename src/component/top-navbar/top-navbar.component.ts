@@ -1,6 +1,8 @@
-import { Component, Injector, ViewChild, ViewContainerRef } from '@angular/core';
-import { UserDataHandler } from 'src/utils/store-user-data';
+import { Component, Inject, Injector, ViewChild, ViewContainerRef } from '@angular/core';
 import { SettingsComponent } from '../settings/settings.component';
+import { MenuOption } from 'src/utils/model/menuOption';
+import { UserDataPort } from 'src/app/ports/userData/userDataPort';
+import { USER_DATA_PORT } from 'src/app/ports/userData/userDataToken';
 
 @Component({
   selector: 'app-top-navbar',
@@ -9,9 +11,8 @@ import { SettingsComponent } from '../settings/settings.component';
 })
 export class TopNavbarComponent {
   userName: string = '';
-  userHandler?: UserDataHandler;
-  menuOptions: any[] = [
-    {label: 'Sair', path: '/login', id: 'loggout', icon: 'poweroff', dark: false, disabled: false},
+  menuOptions: MenuOption[] = [
+    {label: 'Sair', path: '/login', id: 'logout', icon: 'poweroff', dark: false, disabled: false},
     {label: 'Modo escuro', path: '', id: 'theme', icon: 'bulb', dark: false, disabled: false},
     {label: 'Configurações', path: '/', id: 'settings', icon: 'setting', dark: false, disabled: false}
   ];
@@ -22,10 +23,10 @@ export class TopNavbarComponent {
     contentRef!: ViewContainerRef;
 
   constructor(
-    private injector: Injector
+    private injector: Injector,
+    @Inject(USER_DATA_PORT) private userData: UserDataPort
   ) {
-    this.userHandler = new UserDataHandler();
-    this.userName = this.userHandler.getUserName() ?? '';
+    this.userName = this.userData.getUserName() ?? '';
   }
 
   handleOptionClick(event: any) {

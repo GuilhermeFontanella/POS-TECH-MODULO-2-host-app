@@ -1,6 +1,6 @@
 import { InjectionToken } from "@angular/core";
-import { PortLoader } from "../portLoader.interface";
+import { MfePortLoader } from "../mfePortLoader.interface";
 
-export const HOME_LOADER = new InjectionToken<PortLoader>(
+export const HOME_LOADER = new InjectionToken<MfePortLoader>(
     'HOME_LOADER'
 );

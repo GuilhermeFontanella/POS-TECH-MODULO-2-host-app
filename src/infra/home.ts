@@ -2,10 +2,10 @@ import { Injectable, Injector, Type, ViewContainerRef } from "@angular/core";
 import { loadRemoteModule } from "@angular-architects/module-federation";
 import { rebuildMfeComponents } from "src/utils/functions/rebuildMfeComponents";
 import { MFE_ENVIRONMENTS } from "src/utils/constants/mfeEnvironments";
-import { PortLoader } from "../app/ports/portLoader.interface";
+import { MfePortLoader } from "../app/ports/mfePortLoader.interface";
 
 @Injectable()
-export class ModuleFederatioHomeLoader implements PortLoader {
+export class ModuleFederatioHomeLoader implements MfePortLoader {
     private component?: Type<unknown>;
 
     constructor(private injector: Injector) {}

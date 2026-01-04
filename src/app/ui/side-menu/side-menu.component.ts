@@ -5,7 +5,7 @@ import { fromEvent, Subscription } from 'rxjs';
 import { ScreenType } from 'src/utils/functions/check-screen-size';
 import { ModuleFederationSideMenuLoader } from '../../../infra/sideMenu';
 import { SIDE_MENU_LOADER } from '../../ports/sideMenu/sideMenuLoaderToken';
-import { PortLoader } from '../../ports/portLoader.interface';
+import { MfePortLoader } from '../../ports/mfePortLoader.interface';
 
 @Component({
   selector: 'app-side-menu',
@@ -31,7 +31,7 @@ export class SideMenuComponent implements AfterViewInit, AfterContentInit, OnDes
   private $navbarNavigate?: Subscription;
 
   constructor(
-    @Inject(SIDE_MENU_LOADER) private mfeLoader: PortLoader,
+    @Inject(SIDE_MENU_LOADER) private mfeLoader: MfePortLoader,
     private router: Router
   ) { }
 

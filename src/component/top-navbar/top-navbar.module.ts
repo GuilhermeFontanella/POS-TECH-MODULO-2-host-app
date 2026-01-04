@@ -10,6 +10,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { SettingsModule } from '../settings/settings.module';
 import { ThemeApplierDirective } from 'src/utils/directives/theme-applier.directive';
 import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
+import { USER_DATA_PORT } from 'src/app/ports/userData/userDataToken';
+import { UserData } from 'src/infra/userData';
+import { LOCAL_STORAGE } from 'src/app/ports/storage/localStorage.token';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,10 @@ import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
     NzModalModule,
     SettingsModule,
     ThemeDirectiveModule
+  ],
+  providers: [
+    { provide: USER_DATA_PORT, useClass: UserData },
+    { provide: LOCAL_STORAGE, useValue: localStorage },
   ]
 })
 export class TopNavbarModule {}

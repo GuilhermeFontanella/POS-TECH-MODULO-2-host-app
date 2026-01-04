@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Inject, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { ScreenType } from 'src/utils/functions/check-screen-size'
-import { PortLoader } from 'src/app/ports/portLoader.interface';
+import { MfePortLoader } from 'src/app/ports/mfePortLoader.interface';
 import { HOME_LOADER } from 'src/app/ports/home/homeLoaderToken';
 
 @Component({
@@ -16,7 +16,7 @@ export class HomePageComponent implements AfterViewInit, OnChanges {
   @ViewChild('homePageRef', { read: ViewContainerRef })
     homePageRef!: ViewContainerRef;
 
-  constructor(@Inject(HOME_LOADER) private mfeLoader: PortLoader) {}
+  constructor(@Inject(HOME_LOADER) private mfeLoader: MfePortLoader) {}
 
   async ngAfterViewInit() {
     this.mfeLoader.load(this.homePageRef);
