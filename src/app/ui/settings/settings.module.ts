@@ -9,7 +9,7 @@ import { NzColorPickerModule } from 'ng-zorro-antd/color-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
 import { THEME_PORT_LOADER } from 'src/app/ports/theme/themePortToken';
-import { ThemeNgRxAdapter } from 'src/infra/theme';
+import { ThemeNgRxAdapter } from 'src/infra/themeAdapter';
 
 @NgModule({
   declarations: [SettingsComponent],

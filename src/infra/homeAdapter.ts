@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { MfePortLoader } from "../app/ports/mfePortLoader.interface";
 
 @Injectable()
-export class ModuleFederatioHomeLoader implements MfePortLoader {
+export class HomeLoaderAdapter implements MfePortLoader {
     private component?: Type<unknown>;
 
     constructor(private injector: Injector) {}

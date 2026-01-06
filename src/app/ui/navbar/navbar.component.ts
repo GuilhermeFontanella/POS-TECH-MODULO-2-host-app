@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, Inject, Input, OnChanges, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { ScreenType } from 'src/utils/functions/check-screen-size';
 import { MfePortLoader } from '../../ports/mfePortLoader.interface';
-import { ModuleFederationNavbarLoader } from '../../../infra/navbar';
+import { NavbarLoaderAdapter } from '../../../infra/navbarAdapter';
 import { NAVBAR_LOADER } from 'src/app/ports/mfePort/navbar/navbarLoaderToken';
 
 @Component({
@@ -17,7 +17,7 @@ import { NAVBAR_LOADER } from 'src/app/ports/mfePort/navbar/navbarLoaderToken';
     CommonModule
   ],
   providers: [
-    { provide: NAVBAR_LOADER, useClass: ModuleFederationNavbarLoader }
+    { provide: NAVBAR_LOADER, useClass: NavbarLoaderAdapter }
   ]
 })
 export class NavbarComponent implements AfterViewInit, OnChanges {

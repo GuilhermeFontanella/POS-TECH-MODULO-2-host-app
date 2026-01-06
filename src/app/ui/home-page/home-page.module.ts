@@ -8,7 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomePageRoutingModule } from './home-page-routing.module';
-import { ModuleFederatioHomeLoader } from 'src/infra/home';
+import { HomeLoaderAdapter } from 'src/infra/homeAdapter';
 import { HOME_LOADER } from 'src/app/ports/mfePort/home/homeLoaderToken';
 
 
@@ -28,7 +28,7 @@ import { HOME_LOADER } from 'src/app/ports/mfePort/home/homeLoaderToken';
     FormsModule
   ],
   providers: [
-    { provide: HOME_LOADER, useClass: ModuleFederatioHomeLoader }
+    { provide: HOME_LOADER, useClass: HomeLoaderAdapter }
   ]
 })
 export class HomePageModule { }

@@ -3,7 +3,7 @@ import { AfterContentInit, AfterViewInit, Component, Inject, Input, OnChanges, O
 import { Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
 import { ScreenType } from 'src/utils/functions/check-screen-size';
-import { ModuleFederationSideMenuLoader } from '../../../infra/sideMenu';
+import { SideMenuLoaderAdapter } from '../../../infra/sideMenuAdapter';
 import { MfePortLoader } from '../../ports/mfePortLoader.interface';
 import { SIDE_MENU_LOADER } from 'src/app/ports/mfePort/sideMenu/sideMenuLoaderToken';
 
@@ -19,7 +19,7 @@ import { SIDE_MENU_LOADER } from 'src/app/ports/mfePort/sideMenu/sideMenuLoaderT
     CommonModule
   ],
   providers: [
-    { provide:  SIDE_MENU_LOADER, useClass: ModuleFederationSideMenuLoader }
+    { provide:  SIDE_MENU_LOADER, useClass: SideMenuLoaderAdapter }
   ]
 })
 export class SideMenuComponent implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
