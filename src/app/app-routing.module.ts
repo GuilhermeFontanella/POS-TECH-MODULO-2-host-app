@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from './interceptors/auth.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     title: 'Home page',
     path: 'home-page',
+    canActivate: [authGuard],
     loadChildren: () => import('./ui/home-page/home-page.module')
       .then(m => m.HomePageModule),
   },
