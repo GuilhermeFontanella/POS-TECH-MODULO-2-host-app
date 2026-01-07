@@ -1,33 +1,39 @@
-<nz-layout>
-    <nz-header>
-        <app-top-navbar></app-top-navbar>
-    </nz-header>
-    <div class="pageContent" data-theme="background" appThemeApplier>
-        <div [ngSwitch]="screenType">
-            <div class="container">
-                <nz-layout *ngSwitchCase="'desktop'">
-                    <nz-sider data-theme="background" appThemeApplier>
-                            <app-side-menu [screenType]="screenType"></app-side-menu>
-                    </nz-sider>
+<ng-container *ngIf="showLayout; else loginTemplate">
+    <nz-layout>
+        <nz-header>
+            <app-top-navbar></app-top-navbar>
+        </nz-header>
+        <div class="pageContent" data-theme="background" appThemeApplier>
+            <div [ngSwitch]="screenType">
+                <div class="container">
+                    <nz-layout *ngSwitchCase="'desktop'">
+                        <nz-sider data-theme="background" appThemeApplier>
+                                <app-side-menu [screenType]="screenType"></app-side-menu>
+                        </nz-sider>
+                        <nz-content>
+                            <app-component-wrapper data-theme="background" appThemeApplier style="width: 100%;"></app-component-wrapper>
+                        </nz-content>
+                    </nz-layout>
+                </div>
+                <nz-layout *ngSwitchCase="'tablet'">
+                    <nz-header>
+                        <app-navbar [screenType]="screenType"></app-navbar>
+                    </nz-header>
                     <nz-content>
-                        <app-component-wrapper data-theme="background" appThemeApplier style="width: 100%;"></app-component-wrapper>
+                        <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
+                    </nz-content>
+                </nz-layout>
+                <nz-layout *ngSwitchCase="'mobile'">
+                    <app-navbar [screenType]="screenType"></app-navbar>
+                    <nz-content>
+                        <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
                     </nz-content>
                 </nz-layout>
             </div>
-            <nz-layout *ngSwitchCase="'tablet'">
-                <nz-header>
-                    <app-navbar [screenType]="screenType"></app-navbar>
-                </nz-header>
-                <nz-content>
-                    <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
-                </nz-content>
-            </nz-layout>
-            <nz-layout *ngSwitchCase="'mobile'">
-                <app-navbar [screenType]="screenType"></app-navbar>
-                <nz-content>
-                    <app-component-wrapper data-theme="background" appThemeApplier></app-component-wrapper>
-                </nz-content>
-            </nz-layout>
         </div>
-    </div>
-</nz-layout>
+    </nz-layout>
+</ng-container>
+
+<ng-template #loginTemplate>
+    <app-component-wrapper></app-component-wrapper>
+</ng-template>

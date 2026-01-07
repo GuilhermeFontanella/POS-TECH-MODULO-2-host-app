@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +16,8 @@ import {
   PoweroffOutline,
   BulbOutline,
   BulbFill,
-  SettingOutline
+  SettingOutline,
+  BarChartOutline
 } from '@ant-design/icons-angular/icons';
 import { StoreModule } from '@ngrx/store';
 import { themeReducer } from 'src/utils/reducers/them.reducer';
@@ -24,8 +25,9 @@ import { ThemeDirectiveModule } from 'src/utils/directives/theme.module';
 import { SideMenuComponent } from './ui/side-menu/side-menu.component';
 import { ContentWrapperComponent } from './ui/component-wrapper/content-wrapper.component';
 import { NavbarComponent } from './ui/navbar/navbar.component';
+import { IconDefinition } from '@ant-design/icons-angular';
 
-const icons = [
+const icons: IconDefinition[] = [
   MenuOutline,
   UserOutline,
   LogoutOutline,
@@ -34,7 +36,8 @@ const icons = [
   PoweroffOutline,
   BulbOutline,
   BulbFill,
-  SettingOutline
+  SettingOutline,
+  BarChartOutline
 ];
 
 @NgModule({
@@ -45,7 +48,7 @@ const icons = [
     NzLayoutModule,
     TopNavbarModule,
     HttpClientModule,
-    NzIconModule,
+    NzIconModule.forRoot(icons),
     BrowserAnimationsModule,
     StoreModule.forRoot({ theme: themeReducer }),
     ThemeDirectiveModule,
@@ -54,7 +57,8 @@ const icons = [
     NavbarComponent
   ],
   providers: [
-    { provide: NZ_ICONS, useValue: icons }
+    { provide: NZ_ICONS, useValue: icons },
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ],
   bootstrap: [AppComponent]
 })

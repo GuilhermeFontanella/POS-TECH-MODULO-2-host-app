@@ -4,7 +4,8 @@ module.exports = withModuleFederationPlugin({
 
   remotes: {
     "mfeRemote": "http://localhost:4201/remoteEntry.js",
-    "mfeHome": "http://localhost:4202/remoteEntry.js"  
+    "mfeHome": "http://localhost:4202/remoteEntry.js",
+    "mfeLogin": 'http://localhost:4203/remoteEntry.js', 
   },
 
   shared: {
