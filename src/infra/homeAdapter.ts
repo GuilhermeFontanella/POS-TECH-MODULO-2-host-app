@@ -1,27 +1,40 @@
-import { Injectable, Injector, Type, ViewContainerRef } from "@angular/core";
+import { createEnvironmentInjector, EnvironmentInjector, Injectable, Type, ViewContainerRef } from "@angular/core";
 import { loadRemoteModule } from "@angular-architects/module-federation";
-import { rebuildMfeComponents } from "src/utils/functions/rebuildMfeComponents";
 import { environment } from '../environments/environment';
 import { MfePortLoader } from "../app/ports/mfePortLoader.interface";
 
 @Injectable()
 export class HomeLoaderAdapter implements MfePortLoader {
     private component?: Type<unknown>;
+    private childInjector?: EnvironmentInjector;
 
-    constructor(private injector: Injector) {}
+    constructor(private envInjector: EnvironmentInjector) {}
     
     async load(container: ViewContainerRef) {
-        this.component = await loadRemoteModule({
+        const routes = await loadRemoteModule({
             type: 'module',
             remoteEntry: environment.HOME_COMPONENT,
-            exposedModule: './HomeComponent',
-        }).then(m => m.HomeComponent);
+            exposedModule: './HomeRoutes',
+        }).then(m => m.HomeRoutes);
 
-        rebuildMfeComponents(container, this.injector, this.component);
+        const routeConfig = routes[0];
+        this.component = routeConfig.component;
+        const providers = routeConfig.providers || [];
+
+        this.childInjector = createEnvironmentInjector(providers, this.envInjector);
+
+        container.clear();
+        container.createComponent(this.component as Type<any>, {
+            index: container.length,
+            injector: this.childInjector,
+        });
     }
 
     rebuild(container: ViewContainerRef) {
         if (!this.component) return;
-        rebuildMfeComponents(container, this.injector, this.component);
+        container.clear();
+        container.createComponent(this.component as Type<any>, {
+            injector: this.childInjector,
+        });
     }
 }
