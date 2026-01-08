@@ -21,7 +21,14 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./ui/login-page/login-page.module')
       .then(m => m.LoginPageModule),
-  }
+  },
+  {
+    title: '',
+    path: '**',
+    canActivate: [authGuard],
+    loadChildren: () => import('./ui/home-page/home-page.module')
+      .then(m => m.HomePageModule),
+  },
 ];
 
 @NgModule({
