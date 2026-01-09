@@ -209,6 +209,11 @@ Este host consome os seguintes MFEs:
   * Página inicial
   * 🔗 [https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-home](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-home)
 
+* **Login MFE**
+
+  * Pagina de login e cadastro de usuário
+  * 🔗 [https://github.com/GuilhermeFontanella/POS-TECH-MODULO-4-mfe-login](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-4-mfe-login)
+
 ⚠️ Para visualizar o sistema completo, **todos os MFEs devem estar rodando simultaneamente**.
 
 ---
@@ -219,7 +224,7 @@ Este host consome os seguintes MFEs:
 
 * Node.js 16+
 * Angular CLI 16+
-* MFEs (`mfe-navbar` e `mfe-home`) rodando localmente
+* MFEs (`mfe-navbar`, `mfe-home` e `mfe-login`) rodando localmente
 
 ---
 
@@ -243,12 +248,13 @@ A aplicação ficará disponível em:
 http://localhost:4200
 ```
   
-Para ver a aplicação completa rodando o ideal é clonar os 3 mfes (`mfe-host`, `mfe-home` e `mfe-navbar`)  
+Para ver a aplicação completa rodando o ideal é clonar os 4 mfes ([mfe-host](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-host-app), [mfe-home](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-home), [mfe-navbar](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-2-mfe-navbar) e [mfe-login](https://github.com/GuilhermeFontanella/POS-TECH-MODULO-4-mfe-login) )  
 As aplicações ficarão disponíveis em:
 ```
 http://localhost:4200  
 http://localhost:4201  
 http://localhost:4202
+http://localhost:4203
 ```
 ---
 
