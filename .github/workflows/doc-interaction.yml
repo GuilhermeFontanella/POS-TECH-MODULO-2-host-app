@@ -1,0 +1,53 @@
+name: 📝 Doc — Feature Questions
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  post-questions:
+    # Só roda para branches feature/...
+    if: startsWith(github.head_ref, 'feature/')
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Post documentation questions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.payload.pull_request.head.ref;
+            const featureName = branch.replace('feature/', '');
+
+            const body = [
+              '## 📝 Documentação automática — perguntas sobre a feature',
+              '',
+              `Olá! Detectei que este PR é da feature **\`${featureName}\`**.`,
+              'Para gerar a documentação automaticamente no merge, responda as perguntas abaixo neste PR:',
+              '',
+              '**1. Qual problema esta feature resolve?**',
+              '> Descreva o contexto e a motivação.',
+              '',
+              '**2. Como ela funciona em alto nível?**',
+              '> Explique o fluxo principal sem entrar em código.',
+              '',
+              '**3. Há alguma decisão técnica relevante?**',
+              '> Ex: escolha de biblioteca, padrão arquitetural, tradeoffs considerados.',
+              '',
+              '**4. Existem dependências externas?**',
+              '> APIs, serviços, variáveis de ambiente necessárias.',
+              '',
+              '**5. Como testar ou validar essa feature?**',
+              '> Passos mínimos para verificar que funciona corretamente.',
+              '',
+              '---',
+              `> 🤖 *Essas informações, junto com o diff e histórico de commits, serão enviadas ao Claude API para gerar \`/docs/features/${featureName}.md\` no merge.*`,
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body
+            });

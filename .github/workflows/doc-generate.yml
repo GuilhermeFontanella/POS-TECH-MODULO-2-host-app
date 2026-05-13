@@ -1,0 +1,104 @@
+name: 📚 Doc — Generate on Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  generate:
+    # Só roda quando a feature/* for mergeada na main
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'feature/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Collect PR context
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const pr = context.payload.pull_request;
+            const featureName = pr.head.ref.replace('feature/', '');
+
+            // Commits do PR
+            const { data: commits } = await github.rest.pulls.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 50
+            });
+
+            // Comentários (inclui as respostas do dev às perguntas do bot)
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number
+            });
+
+            // Arquivos alterados com patch
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 50
+            });
+
+            const ctx = {
+              feature: featureName,
+              pr: {
+                number: pr.number,
+                title: pr.title,
+                body: pr.body || '',
+                merged_at: pr.merged_at,
+                url: pr.html_url
+              },
+              commits: commits.map(c => ({
+                sha: c.sha.slice(0, 7),
+                message: c.commit.message.split('\n')[0]
+              })),
+              comments: comments.map(c => ({
+                author: c.user.login,
+                body: c.body
+              })),
+              files: files.map(f => ({
+                filename: f.filename,
+                status: f.status,
+                additions: f.additions,
+                deletions: f.deletions,
+                patch: (f.patch || '').slice(0, 600)
+              }))
+            };
+
+            fs.writeFileSync(
+              path.join(process.env.GITHUB_WORKSPACE, 'pr-context.json'),
+              JSON.stringify(ctx, null, 2)
+            );
+
+            console.log(`Contexto coletado para feature: ${featureName}`);
+            console.log(`Commits: ${commits.length} | Comentários: ${comments.length} | Arquivos: ${files.length}`);
+
+      - name: Generate documentation via Claude API
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-docs.js
+
+      - name: Commit documentation to /docs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git diff --cached --quiet || git commit -m "docs: add documentation for $(cat .feature-name)"
+          git push
