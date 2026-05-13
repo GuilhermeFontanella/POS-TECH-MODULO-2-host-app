@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     title: 'Home page',
     path: 'home-page',
-    //canActivate: [authGuard],
+    canActivate: [authGuard],
     loadChildren: () => import('./ui/home-page/home-page.module')
       .then(m => m.HomePageModule),
   },
@@ -25,7 +25,7 @@ const routes: Routes = [
   {
     title: '',
     path: '**',
-    //canActivate: [authGuard],
+    canActivate: [authGuard],
     loadChildren: () => import('./ui/home-page/home-page.module')
       .then(m => m.HomePageModule),
   },
