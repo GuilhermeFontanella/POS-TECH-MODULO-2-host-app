@@ -15,7 +15,6 @@ export class TopNavbarComponent {
   menuOptions$!: Observable<MenuOption[]>;
   isVisible: boolean = false;
   optionSelected: string | null = null;
-  clickCount: number = 0;
 
   @ViewChild('content', { read: ViewContainerRef })
     contentRef!: ViewContainerRef;
@@ -55,9 +54,5 @@ export class TopNavbarComponent {
     this.contentRef.createComponent(SettingsComponent, {
       injector: this.injector
     });
-  }
-
-  incrementCount() {
-    this.clickCount++;
   }
 }
